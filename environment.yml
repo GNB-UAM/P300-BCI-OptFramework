@@ -1,0 +1,15 @@
+name: bci_optfw
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - matplotlib=3.10.1
+  - scikit-learn=1.6.1
+  - tqdm=4.67.1
+  - numpy=2.2.5
+  - pandas=2.2.3
+  - scipy=1.15.2
+  - mat73=0.65
+  - seaborn=0.13.2
+  - optuna=4.4.0
