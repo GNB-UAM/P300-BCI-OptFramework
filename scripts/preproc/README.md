@@ -45,7 +45,7 @@ Parameters must be provided in this order: `./scripts/preproc/bash/preproc_all.s
 
 Usage example:
 ```
-sh scripts/preproc/preproc_all.sh scripts/preproc/preproc_script_won.py data/won_eeg_2022/OriginalDataWon preproc/won/all "All" .6 20 Won
+sh scripts/preproc/bash/preproc_all.sh scripts/preproc/preproc_script_won.py data/won_eeg_2022/OriginalDataWon preproc/won/all "All" .6 20 Won
 ```
 
 ## What we did
@@ -55,7 +55,7 @@ First for Hoffmann et al:
 ```sh
 x=("Hoffmann 16 set" "Hoffmann 8 set" "Hoffmann 4 set" "All");
 for i in $x; do
-    sh scripts/Preprocessing/preproc_all.sh scripts/Preprocessing/preproc_script_hoff.py data/hoffmann_efficient_2008/OriginalDataEPFL preproc/hoff/"$i" "$i" 1 32 Hoffmann;
+    sh scripts/preproc/bash/preproc_all.sh scripts/preproc/preproc_script_hoff.py data/hoffmann_efficient_2008/OriginalDataEPFL preproc/hoff/"$i" "$i" 1 32 Hoffmann;
     echo "Finished '$i'";
 done;
 ```
@@ -65,7 +65,7 @@ Lastly for Won et al:
 ```sh
 y=("Won 16 set" "Won 8 set" "Won 4 set" "All");
 for i in $y; do
-    sh scripts/Preprocessing/preproc_all.sh scripts/Preprocessing/preproc_script_won.py data/won_eeg_2022/OriginalDataWon preproc/won/"$i" "$i" .6 20 Won;
+    sh scripts/preproc/bash/preproc_all.sh scripts/preproc/preproc_script_won.py data/won_eeg_2022/OriginalDataWon preproc/won/"$i" "$i" .6 20 Won;
     echo "Finished '$i'";
 done;
 ```

@@ -7,7 +7,7 @@ This repository contains the scripts and results to generate figures from Jimén
 - [Preprocessing guidelines](scripts/preproc/README.md)
 - [Simulation guidelines](scripts/simulations/README.md)
 - [Results formatting guidelines](scripts/reports/README.md)
-- [Plots guidelines](scripts/plots/README.md)
+- [Figures guidelines](scripts/plots/README.md)
 
 ## Optimization Framework
 We propose a multi-objective optimization procedure to joinly optimize both classifiers and early-stopping strategies.
@@ -38,6 +38,9 @@ You can use this code to reproduce our results or to base your research on it.
 This repository contains a mixture of Python and Bash scripts, the former execute our simulations while the latter automate all experiments.
 Bash scripts are not necessary to reproduce our results, but we encourage you using them as they automatize the whole process.
 
+In case you want to perform your own analysis on our results, we also provide `*.csv` files with all our results within a compressed file called `results/results.tgz`.
+Feel free to use it as you see fit for your research.
+
 > **Note**
 > 
 > The provided Python scripts can be executed with a *help* flag (`-h`) to show their available execution options, for example:
@@ -59,6 +62,7 @@ Bash scripts are not necessary to reproduce our results, but we encourage you us
 > ...
 > ```
 
+
 ### 1. Python environment
 Create and load the Python environment with Anaconda:
 ```
@@ -69,11 +73,11 @@ conda activate bci_optfw
 ### 2. Include utils in path
 To execute all scripts, it is necessary to include `utils` modules within your system path.
 
-In Linux shell:
+In a Linux shell:
 ```sh
 export PYTHONPATH=scripts/utils
 ```
-Or in Windows powershell:
+Or in a Windows powershell:
 ```powershell
 $env:PYTHONPATH = scripts\utils
 ```
@@ -87,6 +91,7 @@ The following publicly P300-based available datasets are required:
 
 Preprocessing procedures were reproduced from original papers.
 We provide two scripts to preprocess each dataset separately.
+
 Usage:
 ```
 python scripts/preproc/preproc_script_hoff.py -s 1 -id data/hoffmann_efficient_2008/OriginalDataEPFL -od preproc/S1 -el 1 -sfreq 32 -es "All"
@@ -96,7 +101,7 @@ Won et al. dataset [^2] has its own script (`script/preproc/preproc_script_won.p
 
 > **Note**
 >
-> For more information and automated script execution, see [preprocessing's README](scripts/preproc/README.md).
+> For more information, automated script execution, and guidelines, see [preprocessing's README](scripts/preproc/README.md).
 > 
 > We also provide a script to automatically download Won et al. dataset [^2] from Springer Nature, it can be executed by doing:
 > ```
@@ -104,12 +109,12 @@ Won et al. dataset [^2] has its own script (`script/preproc/preproc_script_won.p
 > ```
 
 ### 4. Execute simulations
-In our work we ran several simulations with a script:
-- `scripts/simulations/bci_optim.py` executes the optimization framework shown on the figure above for all paradigm, policy, transducer, and control-interface combinations.
+We ran several simulations with a script called `scripts/simulations/bci_optim.py`.
+This script executes the optimization framework shown on the figure above for all paradigm, policy, transducer, and control-interface combinations.
 
 Usage:
 ```
-python scripts/simulations/bci_optim.py -d Hoffmann -s 1 -id preproc/hoff/all -o example.db -os ITR -erpd LinearDiscriminantAnalysis -j -1 -t 16
+python scripts/simulations/bci_optim.py -d Hoffmann -s 1 -id preproc/hoff/all -o example -os ITR -erpd LinearDiscriminantAnalysis -j -1 -t 16
 ```
 In this example, the first subject from Hoffmann et al. [^1] experiment (`-d Hoffmann -s 1`) is optimized using all electrodes (`-id preproc/hoff/all`), the Information Transfer Rate as optimization policy (`-os ITR`), and Regularized LDA as transducer (`-erpd LinearDiscriminantAnalysis`).
 Moreover, all CPU cores were assigned to work in parallel (`-j -1`) and 16 hyperparameters were assessed (`-t 16`).
@@ -117,28 +122,28 @@ This was repeated for every subject, paradigm, electrode subset, transducer, con
 
 > **Note**
 > 
-> The script tests all control-interfaces simultaneously, so there is no need to specify them.
+> The script tests all control-interfaces simultaneously, so there is no need to specify them through the arguments.
 >
-> For more information and automated script execution, see [simulation's README](scripts/simulations/README.md).
+> For more information, automated script execution, and guidelines, see [simulation's README](scripts/simulations/README.md).
 
 ### 5. Format results
 Simulations will generate at least one "\*.db" file, these are SQLite databases containing the optimization results.
-These files are formatted into CSV files through a script:
-- `scripts/reports/optuna_bci_resfmt.py` transforms Optuna's SQLite results into Pandas' dataframes which are finally exported as CSV files.
+These files are formatted into CSV files through `scripts/reports/optuna_bci_resfmt.py`.
 
 Usage:
 ```
-python scripts/reports/optuna_bci_resfmt.py -i results/Optuna/OptimCVComplete/hoff/HoffStudy_1_4.db results/Optuna/OptimCVComplete/hoff/HoffStudy_6_9.db -o results/Optuna/OptimCVComplete/CSV/HoffAll.csv
+python scripts/reports/optuna_bci_resfmt.py -i results/Optuna/OptimCVComplete/hoff/HoffStudy.db results/Optuna/OptimCVComplete/won/WonStudy.db -o results/Optuna/OptimCVComplete/CSV/AllResults.csv
 ```
-This example joins two "\*.db" files—*HoffStudy_1_4.db* and *HoffStudy_6_9.db* (-i results/...)—into a single CSV file named *HoffAll.csv* (-o .../HoffAll.csv) with the obtained results.
+This example joins two "\*.db" files—*HoffStudy.db* and *WonStudy.db* (-i results/...)—into a single CSV file named *AllResults.csv* (-o .../AllResults.csv) with the obtained results.
 You can add as many input files as desired, they will be all concatenated within a CSV output file.
 
 > **Note**
 >
-> For more information see [report's README](scripts/reports/README.md).
+> For more information and guidelines see [report's README](scripts/reports/README.md).
 
 ### 6. Draw figures
 Figures were generated from CSV files.
+
 Particularly, we drew 7 types of figures:
 - Speed–Accuracy density maps - 2D Histograms
 - Policies average trial–accuracy dots

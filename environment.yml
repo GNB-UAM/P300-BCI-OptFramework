@@ -13,3 +13,4 @@ dependencies:
   - mat73=0.65
   - seaborn=0.13.2
   - optuna=4.4.0
+  - requests=2.34.2
