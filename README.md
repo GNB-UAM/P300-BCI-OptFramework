@@ -3,6 +3,8 @@ This repository contains the scripts and results to generate figures from Jimén
 
 **"A Methodological Framework for Explicit Control of the Speed–Accuracy Trade-Off in Brain–Computer Interfaces" (2026)**
 
+This work was developed and tested on a Linux system.
+
 ## Table of contents
 - [Preprocessing guidelines](scripts/preproc/README.md)
 - [Simulation guidelines](scripts/simulations/README.md)
@@ -76,10 +78,6 @@ To execute all scripts, it is necessary to include `utils` modules within your s
 In a Linux shell:
 ```sh
 export PYTHONPATH=scripts/utils
-```
-Or in a Windows powershell:
-```powershell
-$env:PYTHONPATH = scripts\utils
 ```
 
 Scripts should be executed from the repository's root folder.
